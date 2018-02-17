@@ -84,4 +84,19 @@
 	});
 
 
+
+	if ('serviceWorker' in navigator) {
+		navigator.serviceWorker.register('/service-worker.js')
+			.then(function(registration) {
+				// R e g i s t r a t i o n  w a s  s u c c e s s f u l    
+				console.log('ServiceWorker registration successful with scope: ',    registration.scope);  
+			}).catch(function(err) {    
+				// r e g i s t r a t i o n  f a i l e d : (    
+				console.log('ServiceWorker registration failed: ', err);  
+			}); 
+	}
+
+
+
+
 })();
