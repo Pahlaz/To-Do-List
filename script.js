@@ -84,7 +84,7 @@
 	});
 
 	if ('serviceWorker' in navigator) {
-		navigator.serviceWorker.register('./service-worker.js')
+		navigator.serviceWorker.register('/To-Do-List/service-worker.js', {scope: '/To-Do-List/'})
 			.then( (registration) => {  
 				console.log('[ServiceWorker] Registration successful with scope:) ',    registration.scope);
 
