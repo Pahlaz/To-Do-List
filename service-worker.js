@@ -14,6 +14,9 @@ self.addEventListener('install', (e) => {
 				console.log('[ServiceWorker] Caching...');
 				return cache.addAll(cacheFiles);
 	  	})
+			.then( () => {
+				return self.skipWaiting();
+			})
 		);
 });
 
@@ -31,6 +34,9 @@ self.addEventListener('activate', (e) => {
 						return cache.delete(currentCacheName);
 					}
 				}));
+			})
+			.then( () => {
+				return self.clients.claim();
 			})
 		);
 });

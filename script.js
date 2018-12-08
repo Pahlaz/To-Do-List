@@ -1,52 +1,64 @@
 (function() {
 	'use strict';
 
-	var addItemForm = document.querySelector('#add-item');
+	let addItemForm = document.querySelector('#add-item'),
+			contextMenu = document.querySelector('#context-menu');
 
 	// get the TO DO LIST items from local storage to list object.
 	let list = JSON.parse(localStorage.getItem('TODO-LIST') || '[]');
 
 	function attachItemEvents() {
-		// attaching event to delete button.
-		let deleteBtn = document.querySelector('.delete-btn');
-
-		deleteBtn.addEventListener('click', (e) => {
-			deleteItem(e);
-		});
-
 		document.querySelectorAll('input[type="checkbox"]')
 				.forEach( (checkbox) => {
 					checkbox.addEventListener('change', (e) => {
-							onChange(e);
+							toggleListItemState(e);
 						});
 				});
+
+		document.querySelectorAll(".list__item").forEach( (item) => {
+			item.addEventListener('contextmenu', (event) => {
+				openCustomContexMenu(event)
+			})
+		})
+		
+	}
+
+	function openCustomContexMenu(event) {
+		event.preventDefault();
+
+		contextMenu.style.display = 'block';
+		contextMenu.style.top = mouseY(event) + 'px';
+		contextMenu.style.left = mouseX(event) + 'px';
+
+		contextMenu.dataset.id = event.target.id;
+
+		window.event.returnValue = false;
 	}
 
 	function addItem(id, text, isChecked) {
-		let output = document.querySelector('.list__item:first-child');
+		let output = document.querySelector('.list__itemAdd');
 
 		let itemTemplate = `
-			<div class="list__item" data-id="${id}">
+			<div class="list__item" id="${id}">
 				<input type="checkbox" id="${id}" ${(isChecked)? 'checked':''}>
 				<label for="${id}">${text}</label>
-				<span class="delete-btn">x</span>
+				<input type="text" id="edit-item-field" />
 			</div>`;
 
 		output.insertAdjacentHTML('afterend', itemTemplate);
 	}
 
-	function deleteItem(e) {
-		let delEl = e.target.parentNode;
-		let id = delEl.dataset.id;
-		
+	function deleteItem(id) {
+		let item = document.querySelector('#'+id);
+
 		if (window.confirm("Do you really want to delete this item?")) {
-			delEl.parentNode.removeChild(delEl);
+			item.parentNode.removeChild(item);
 			list = list.filter( (el) => el.id != id );
 			localStorage.setItem('TODO-LIST', JSON.stringify(list));
 		}
 	}
 
-	function onChange(e) {
+	function toggleListItemState(e) {
 		for(let i in list) {
 			if(list[i].id == e.target.id) {
 				list[i].isChecked = e.target.checked;
@@ -82,6 +94,46 @@
 
 		this.reset();
 	});
+
+	function mouseX(evt) {
+		if (evt.pageX) {
+				return evt.pageX;
+		} else if (evt.clientX) {
+				return evt.clientX + (document.documentElement.scrollLeft ?
+				document.documentElement.scrollLeft :
+				document.body.scrollLeft);
+		} else {
+				return null;
+		}
+	}
+	function mouseY(evt) {
+			if (evt.pageY) {
+					return evt.pageY;
+			} else if (evt.clientY) {
+					return evt.clientY + (document.documentElement.scrollTop ?
+					document.documentElement.scrollTop :
+					document.body.scrollTop);
+			} else {
+					return null;
+			}
+	}
+
+	document.addEventListener('click', (event) => {
+		contextMenu.style.display = 'none';
+	});
+
+	contextMenu.querySelector('#delete-item-button').addEventListener('click', (event) => {
+		let itemID = event.target.parentNode.parentNode.dataset.id;
+
+		deleteItem(itemID);
+	})
+
+	contextMenu.querySelector('#edit-item-button').addEventListener('click', (event) => {
+		let itemID = event.target.parentNode.parentNode.dataset.id;
+
+		// TO DO : on clicking edit button user should be able to edit the item in place
+	})
+	
 
 	if ('serviceWorker' in navigator) {
 		navigator.serviceWorker.register('/To-Do-List/service-worker.js', {scope: '/To-Do-List/'})

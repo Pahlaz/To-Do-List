@@ -26,7 +26,7 @@ header .logo {
 .list {
 	margin: 70px 20px 20px 20px;
 }
-.list__item {
+.list__item, .list__itemAdd {
 	min-height: 50px;
 	background: #303030;
 	color: #cccccc;
@@ -34,28 +34,22 @@ header .logo {
 	padding-left: 5px;
 	border-radius: 3px;
 	display: grid;
-	grid-template-columns: 20px 7fr 20px;
+	grid-template-columns: 20px 7fr;
 	grid-column-gap: 5px;
 	box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+	position: relative;
 }
 
-.list__item span.add-btn {
+span.add-btn {
 	line-height: 50px;
 	text-align: center;
 	font-size: 18px;
-}
-.list__item span.delete-btn {
-	background: #fb8a8a;
-	color: red;
-	text-align: center;
-	margin: auto 0px;
-	cursor: pointer;
-	display: none;
 }
 
 .list__item label:not(.add-item) {
 	font-size: 18px;
 	margin: auto 0px;
+	pointer-events: none;
 }
 .list__item input[type='checkbox'] {
 	width: 15px;
@@ -64,6 +58,18 @@ header .logo {
 }
 .list__item input[type='checkbox']:checked + label {
 	text-decoration: line-through;
+}
+.list__item input#edit-item-field {
+	width: calc(100% - 30px);
+	display: none;
+	position: absolute;
+	height: 100%;
+	background: #303030;
+	color: #cccccc;
+	font-size: 18px;
+	outline: none;
+	border: none;
+	margin-left: 30px;
 }
 
 .list form#add-item input {
@@ -75,17 +81,40 @@ header .logo {
 	outline: none;
 	font-size: 18px;
 }
-.list__item:hover span.delete-btn {
-	display: inline-block;
+
+#context-menu {
+	display: none;
+	z-index:1;
+	position: absolute;
+	background-color: #202020;
+	color: #cccccc;
+	box-shadow: 3px 3px 7px 1px rgba(0, 0, 0, 0.3);
+	border: .5px solid rgba(255, 255, 255, 0.1);
+}
+#context-menu ul { 
+	padding: 10px;
+}
+#context-menu li {
+	list-style: none;
+	margin-bottom: 10px;
+	cursor: pointer;
+}
+#context-menu li:last-child {
+	margin-bottom: 0px;
+}
+#context-menu #delete-item-button {
+	color: tomato;
 }
 
 
-@media screen and (min-width: 425px) {
+/* Tablet View */
+@media screen and (min-width: 426px) and (max-width: 768px) {
 	.list {
 		width: 400px;
 		margin: 70px auto 20px auto;
 	}
 }
+/* Mobile View */
 @media screen and (max-width: 425px) {
 	.list {
 		margin: 70px 20px 70px 20px;
@@ -99,9 +128,10 @@ header .logo {
 		box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.3);
 	}
 }
-@media screen and (min-width: 768px) {
+/* Laptop View */
+@media screen and (min-width: 769px) {
 	.list {
-		width: 500px;
+		width: 550px;
 		margin: 70px auto 20px auto;
 	}
 }
