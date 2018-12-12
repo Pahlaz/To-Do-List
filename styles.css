@@ -37,7 +37,6 @@ header .logo {
 	grid-template-columns: 20px 7fr;
 	grid-column-gap: 5px;
 	box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
-	position: relative;
 }
 
 span.add-btn {
