@@ -2,7 +2,10 @@
 	'use strict';
 
 	let addItemForm = document.querySelector('#add-item'),
-			contextMenu = document.querySelector('#context-menu');
+			contextMenu = document.querySelector('#context-menu'),
+			navMenuEl = document.querySelector('#navMenu'),
+			settingsPopupEl = document.querySelector('#settingsPopup'),
+			overlayEl = document.querySelector('#overlay');
 
 	// get the TO DO LIST items from local storage to list object.
 	let list = JSON.parse(localStorage.getItem('TODO-LIST') || '[]');
@@ -132,8 +135,45 @@
 		let itemID = event.target.parentNode.parentNode.dataset.id;
 
 		// TO DO : on clicking edit button user should be able to edit the item in place
+		alert('comming soon');
 	})
 	
+	document.querySelector('header .toggleMenuBtn').addEventListener('click', () => {
+		// showing nav menu and overlay
+		navMenuEl.style.margin = '0px';
+		overlayEl.style.display = 'block';
+
+		// blocking scrolling
+		document.querySelector('html').classList.add('blockScroll');
+	});
+
+	document.querySelector('#navMenu__controls .toggleMenuBtn.close').addEventListener('click', () => {
+		// hiding nav menu and overlay
+		navMenuEl.style.margin = '0px 0px 0px -300px';
+		overlayEl.style.display = 'none';
+
+		// enabling scrolling
+		document.querySelector('html').classList.remove('blockScroll');
+	});
+
+	overlayEl.addEventListener('click', () => {
+		// closing mav menu on clicking outside
+		navMenuEl.style.margin = '0px 0px 0px -300px';
+		overlayEl.style.display = 'none';
+
+		// close settings popup if open
+		if(settingsPopupEl.style.display != 'none') {
+			settingsPopupEl.style.display = 'none';
+		}
+
+		// enabling scrolling
+		document.querySelector('html').classList.remove('blockScroll');
+	})
+
+	document.querySelector('#help').addEventListener('click', () => {
+		// TO DO: add help functionality
+		alert('Feature Comming Soon');
+	});
 
 	if ('serviceWorker' in navigator) {
 		navigator.serviceWorker.register('/To-Do-List/service-worker.js', {scope: '/To-Do-List/'})

@@ -6,6 +6,7 @@ var cacheFiles = [
 	'/To-Do-List/',
 	'/To-Do-List/android-icon-36x36.png',
 	'/To-Do-List/script.js',
+	'/To-Do-List/settings.js',
 	'/To-Do-List/styles.css'
 ]
 

@@ -17,21 +17,85 @@
 
 	<style>
 		* {
-			margin: 0px;
 			font-family: 'arial';
 			box-sizing: border-box;
 		}
 		body {
-			background: #232323;
+			margin: 0px;
+			background: var(--body-background);
+		}
+		html {
+			height: 100%;
+			overflow: var(--scroll);
+		}
+		h2, h3 {
+			margin: 0px;
+		}
+		ul {
+			margin: 0px;
+		}
+
+		::placeholder {
+			color: var(--textPlaceholder-color);
+		}
+		
+		:root, .theme-dark {
+			--body-background: #232323;
+			--header-background: #202020;
+			--header-height: 50px;
+			--text-color: #cccccc;
+			--textPlaceholder-color: #cccccc;
+			--toggleMenuBtn-background: #cccccc;
+			--listItem-background: #303030;
+			--listItemHover-background: #252525;
+			--navMenu-background: #202020;
+			--contextMenuDeleteText-color: tomato;
+			--scroll: auto;
+		}
+
+		.theme-light {
+			--body-background: #efefef;
+			--header-background: #2768c3;
+			--header-height: 50px;
+			--text-color: #ffffff;
+			--textPlaceholder-color: #ffffff;
+			--toggleMenuBtn-background: #eeeeee;
+			--listItem-background: cornflowerblue;
+			--listItemHover-background: #4d80df;
+			--navMenu-background: #2768c3;
+			--contextMenuDeleteText-color: #ffffff;
+		}
+		.theme-black {
+			--body-background: #000000;
+			--header-background: #000000;
+			--header-height: 50px;
+			--text-color: #eeeeee;
+			--textPlaceholder-color: #eeeeee;
+			--toggleMenuBtn-background: #eeeeee;
+			--listItem-background: #303030;
+			--listItemHover-background: #202020;
+			--navMenu-background: #000000;
+			--contextMenuDeleteText-color: #eeeeee;
 		}
 	</style>
 	<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 	<header>
-			<div class="logo"><img src="android-icon-36x36.png" /></div>
+		<button class="toggleMenuBtn"><span></span></button>
+		<div class="logo"><img src="android-icon-36x36.png" alt="logo"/></div>
 		<div class="title">To Do List</div>
 	</header>
+
+	<nav id="navMenu">
+		<div id="navMenu__controls">
+				<button class="toggleMenuBtn close"><span></span></button>
+		</div>
+		<ul id="navMenu__list">
+			<li id="settingsLink">Settings</li>
+			<li id="help">Help & Feedback</li>
+		</ul>
+	</nav>
 
 	<div class="list">
 		<div class="list__itemAdd">
@@ -49,6 +113,44 @@
 		</ul>
 	</div>
 
+	<div id="settingsPopup">
+		<div class="popupHeader">
+			<h2>SETTINGS</h2>
+			<button class="toggleMenuBtn close"><span></span></button>
+		</div>
+		<div class="popupContent">
+			<div id="themeSection">
+				<h3>Theme</h3>
+
+				<div class="themeOptions">
+					<input type="radio" id="dark" name="theme" value="dark"/>
+					<label for="dark">Dark</label>
+
+					<input type="radio" id="light" name="theme" value="light"/>
+					<label for="light">Light</label>
+
+					<input type="radio" id="black" name="theme"value="black"/>
+					<label for="black">Black</label>
+				</div>
+			</div>
+
+			<div id="optionsList">
+				<div>
+						<input type="checkbox" id="checkedItemsToBottom" value="checkedItemsToBottom"/>
+						<label for="checkedItemsToBottom">Move Checked items to bottom</label>
+				</div>
+
+				<div>
+						<input type="checkbox" id="gDrive" value="gDrive"/>
+						<label for="gDrive">Sync Data to Google Drive</label>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="overlay"></div>
+
 	<script src="script.js"></script>
+	<script src="settings.js"></script>
 </body>
 </html>
