@@ -43,44 +43,53 @@
 			--body-background: #232323;
 			--header-background: #202020;
 			--header-height: 50px;
+			--header-border-bottom: 1px solid rgba(255,255,255,0.3);
 			--text-color: #cccccc;
 			--textPlaceholder-color: #cccccc;
 			--toggleMenuBtn-background: #cccccc;
 			--listItem-background: #303030;
 			--listItemHover-background: #252525;
 			--navMenu-background: #202020;
+			--navMenu-border-right: 1px solid rgba(255,255,255,0.3);
 			--contextMenuDeleteText-color: tomato;
 			--scroll: auto;
+			--listItem-border: none;
 		}
 
 		.theme-light {
 			--body-background: #efefef;
 			--header-background: #2768c3;
 			--header-height: 50px;
+			--header-border-bottom: 1px solid rgba(0,0,0,0.3);
 			--text-color: #ffffff;
 			--textPlaceholder-color: #ffffff;
 			--toggleMenuBtn-background: #eeeeee;
 			--listItem-background: cornflowerblue;
 			--listItemHover-background: #4d80df;
 			--navMenu-background: #2768c3;
+			--navMenu-border-right: 1px solid rgba(0,0,0,0.3);
 			--contextMenuDeleteText-color: #ffffff;
+			--listItem-border: none;
 		}
 		.theme-black {
 			--body-background: #000000;
 			--header-background: #000000;
 			--header-height: 50px;
+			--header-border-bottom: 1px solid rgba(255,255,255,0.3);
 			--text-color: #eeeeee;
 			--textPlaceholder-color: #eeeeee;
 			--toggleMenuBtn-background: #eeeeee;
-			--listItem-background: #303030;
-			--listItemHover-background: #202020;
+			--listItem-background: #000000;
+			--listItemHover-background: #101010;
 			--navMenu-background: #000000;
+			--navMenu-border-right: 1px solid rgba(255,255,255,0.3);
 			--contextMenuDeleteText-color: #eeeeee;
+			--listItem-border: 1px solid #3c3c3c;
 		}
 	</style>
 	<link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="theme-black">
 	<header>
 		<button class="toggleMenuBtn"><span></span></button>
 		<div class="logo"><img src="android-icon-36x36.png" alt="logo"/></div>
